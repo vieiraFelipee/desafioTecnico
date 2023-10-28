@@ -1,1 +1,46 @@
-<p>create-baralho works!</p>
+<div class="wrapper">
+  <div class="header">
+    <h1 class="text">Criando novo Baralhos</h1>
+    <button mat-raised-button color="primary">Criar baralho</button>
+  </div>
+
+  <div style="display: flex; height: 70%">
+    <div
+      class="listaBaralhos"
+      *ngIf="cartas$ | async as cartas"
+      #scrollContainer
+    >
+      <div class="cardList">
+        <mat-card class="card" *ngFor="let carta of cartas.slice(0, 9)">
+          <div class="card__content__img">
+            <img [src]="carta.images.small" alt="Logo" />
+          </div>
+          <button
+            class="btCard"
+            mat-raised-button
+            color="primary"
+            (click)="addCarta(carta)"
+          >
+            Adicionar Carta
+          </button>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="minhasCartas">
+      <h1>Minhas Cartas</h1>
+
+      <div class="cartaLocal" *ngFor="let carta of baralhoLocal">
+        <div>
+          <span>{{ carta.name }}</span
+          ><br />
+          <span>Raridade - {{ carta.rarity }}</span>
+          <span>HP - {{ carta.hp }}</span>
+        </div>
+        <button mat-icon-button matTooltip="Basic">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

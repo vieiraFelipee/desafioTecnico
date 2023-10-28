@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -38,4 +38,8 @@ export class BaralhosComponent {
   ];
 
   constructor(private router: Router) {}
+
+  criarBaralho() {
+    this.router.navigate(['/create-baralho']);
+  }
 }

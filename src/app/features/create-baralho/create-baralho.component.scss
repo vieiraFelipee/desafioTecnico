@@ -1,0 +1,69 @@
+.wrapper {
+  height: 100%;
+}
+
+.header {
+  background: linear-gradient(
+    0deg,
+    rgba(11, 74, 149, 1) 0%,
+    rgba(168, 17, 255, 1) 100%
+  );
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .text {
+    color: white;
+    font-size: 3rem;
+  }
+}
+
+.listaBaralhos {
+  background-color: #f4f4f4;
+  display: flex;
+  place-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+
+  .cardList {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+  }
+
+  .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 200px;
+    height: 350px;
+    margin: 10px;
+    text-align: center;
+    img {
+      max-width: 200px;
+    }
+    .btCard {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.minhasCartas {
+  width: 512px;
+  height: 100%;
+  background: aquamarine;
+  text-align: center;
+}
+
+.cartaLocal {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  background-color: red;
+  border-radius: 10px;
+}
