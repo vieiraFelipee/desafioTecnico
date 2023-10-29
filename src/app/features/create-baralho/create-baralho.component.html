@@ -1,46 +1,94 @@
 <div class="wrapper">
   <div class="header">
-    <h1 class="text">Criando novo Baralhos</h1>
-    <button mat-raised-button color="primary">Criar baralho</button>
+    <h1 class="text">Criando meu novo baralho</h1>
+    <mat-form-field [formGroup]="nameForm" *ngIf="cartasOriginal.length > 0">
+      <mat-label>Buscar Cartas</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="search"
+        (input)="onInputChange()"
+      />
+      <button
+        *ngIf="this.nameForm.get('search')?.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="this.nameForm.get('search')?.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
   </div>
 
-  <div style="display: flex; height: 70%">
-    <div
-      class="listaBaralhos"
-      *ngIf="cartas$ | async as cartas"
-      #scrollContainer
-    >
-      <div class="cardList">
-        <mat-card class="card" *ngFor="let carta of cartas.slice(0, 9)">
-          <div class="card__content__img">
-            <img [src]="carta.images.small" alt="Logo" />
-          </div>
-          <button
-            class="btCard"
-            mat-raised-button
-            color="primary"
-            (click)="addCarta(carta)"
+  <div style="display: flex; height: 80%" *ngIf="cartas$ | async as cartas">
+    <div *ngIf="cartas.length > 0">
+      <div class="listaBaralhos" #scrollContainer>
+        <!-- Lista de Cartas do Enpoint -->
+        <div class="cardList">
+          <mat-card
+            class="card"
+            *ngFor="let carta of cartasOriginal.slice(0, 9)"
           >
-            Adicionar Carta
+            <div class="card__content__img">
+              <img [src]="carta.images.small" alt="Logo" />
+            </div>
+            <button
+              class="btCard"
+              mat-fab
+              extended
+              color="primary"
+              (click)="addCarta(carta)"
+            >
+              Adicionar Carta
+            </button>
+          </mat-card>
+        </div>
+      </div>
+
+      <!-- Lista de Cartas pra Salvar -->
+      <div class="minhasCartas">
+        <h1 class="text">Meu Baralho</h1>
+
+        <mat-form-field [formGroup]="nameForm">
+          <mat-label>Nome do Baralho</mat-label>
+          <input matInput type="text" formControlName="name" />
+          <button
+            *ngIf="this.nameForm.get('name')?.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="this.nameForm.get('name')?.setValue('')"
+          >
+            <mat-icon>close</mat-icon>
           </button>
-        </mat-card>
+        </mat-form-field>
+
+        <div class="cartaLocal" *ngFor="let carta of cardList">
+          <div>
+            <span>{{ carta.name }}</span
+            ><br />
+            <span>Raridade - {{ carta.rarity }}</span>
+            <span>HP - {{ carta.hp }}</span>
+          </div>
+          <button mat-icon-button matTooltip="Basic">
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </div>
+
+        <div>
+          <button class="btCard" mat-fab extended (click)="salvarBaralho()">
+            Adicionar Baralho
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="minhasCartas">
-      <h1>Minhas Cartas</h1>
-
-      <div class="cartaLocal" *ngFor="let carta of baralhoLocal">
-        <div>
-          <span>{{ carta.name }}</span
-          ><br />
-          <span>Raridade - {{ carta.rarity }}</span>
-          <span>HP - {{ carta.hp }}</span>
-        </div>
-        <button mat-icon-button matTooltip="Basic">
-          <mat-icon>favorite</mat-icon>
-        </button>
-      </div>
+    <div class="loading" *ngIf="cartas.length === 0">
+      <mat-spinner style="margin-bottom: 20px"></mat-spinner>
+      <span>Buscando Cartas...</span>
     </div>
   </div>
+
+  <div></div>
 </div>

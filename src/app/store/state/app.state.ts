@@ -1,18 +1,20 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { GetCartas } from '../actions/app.actions';
+import { AddBaralho, DeleteBaralho, GetCartas } from '../actions/app.actions';
 import { Injectable } from '@angular/core';
-import { Card } from 'src/app/shared/services/models/card.model';
+import { Baralho, Card } from 'src/app/shared/services/models/card.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, take, tap } from 'rxjs';
 
 export class AppStateModel {
   cartas: Card[] | undefined;
+  baralhos: Baralho[] | undefined;
 }
 
 @State<AppStateModel>({
   name: 'profile',
   defaults: {
     cartas: [],
+    baralhos: [],
   },
 })
 @Injectable()
@@ -22,6 +24,11 @@ export class AppState {
   @Selector()
   static getCartas(state: AppStateModel) {
     return state.cartas;
+  }
+
+  @Selector()
+  static getBaralhos(state: AppStateModel) {
+    return state.baralhos;
   }
 
   @Action(GetCartas)
@@ -47,5 +54,25 @@ export class AppState {
         })
       )
       .subscribe();
+  }
+
+  @Action(AddBaralho)
+  addBaralho(ctx: StateContext<AppStateModel>, { baralho }: AddBaralho): void {
+    let baralhos = ctx.getState().baralhos;
+    if (baralhos) baralhos.push(baralho);
+
+    ctx.patchState({
+      baralhos: baralhos,
+    });
+  }
+
+  @Action(DeleteBaralho)
+  deleteBaralho(ctx: StateContext<AppStateModel>, { id }: DeleteBaralho): void {
+    let baralhos = ctx.getState().baralhos;
+    const filteredBaralho = baralhos?.filter((baralho) => baralho.id !== id);
+
+    ctx.patchState({
+      baralhos: filteredBaralho,
+    });
   }
 }

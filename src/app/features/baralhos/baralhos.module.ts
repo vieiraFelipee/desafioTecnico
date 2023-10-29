@@ -4,6 +4,8 @@ import { BaralhosRoutingModule } from './baralhos-routing.module';
 import { BaralhosComponent } from './baralhos.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [BaralhosComponent],
@@ -12,6 +14,8 @@ import { MatCardModule } from '@angular/material/card';
     BaralhosRoutingModule,
     MatButtonModule,
     MatCardModule,
+    MatMenuModule,
+    MatIconModule,
   ],
 })
 export class BaralhosModule {}

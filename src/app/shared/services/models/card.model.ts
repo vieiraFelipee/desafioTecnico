@@ -1,3 +1,9 @@
+export interface Baralho {
+  id: number;
+  nome: string;
+  cartas: Card[];
+}
+
 export interface Card {
   id: string;
   name: string;

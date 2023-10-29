@@ -1,0 +1,43 @@
+.wrapper {
+  height: 100%;
+  background: linear-gradient(0deg, rgb(160 203 255) 0%, #ffffff 100%);
+}
+
+.header {
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .text {
+    color: #0072c5;
+    font-size: 3rem;
+    font-family: math;
+  }
+}
+
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 200px;
+  height: 279px;
+  margin: 10px;
+  text-align: center;
+  img {
+    max-width: 200px;
+  }
+  .btCard {
+    width: 80%;
+    margin-bottom: 20px;
+    color: white;
+    background: linear-gradient(0deg, rgb(70 181 176) 0%, #00adff 100%);
+  }
+}

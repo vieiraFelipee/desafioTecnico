@@ -21,7 +21,18 @@ const routes: Routes = [
         (m) => m.CreateBaralhoModule
       ),
   },
-  { path: 'customers', loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) },
+  {
+    path: 'customers',
+    loadChildren: () =>
+      import('./customers/customers.module').then((m) => m.CustomersModule),
+  },
+  {
+    path: 'detalhes-baralho',
+    loadChildren: () =>
+      import('./features/detalhes-baralho/detalhes-baralho.module').then(
+        (m) => m.DetalhesBaralhoModule
+      ),
+  },
 ];
 
 @NgModule({
@@ -29,4 +40,3 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
- 

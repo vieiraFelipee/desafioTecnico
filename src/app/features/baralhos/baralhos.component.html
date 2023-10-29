@@ -1,17 +1,66 @@
 <div class="wrapper">
-
-    <div class="header">
-
-        <h1 class="text">Meus Baralhos</h1>
-        <button mat-raised-button color="primary" (click)="criarBaralho()">Criar baralho</button>
+  <div class="header">
+    <div class="headerBts">
+      <button mat-fab extended>
+        <mat-icon>favorite</mat-icon>
+        Pokemon
+      </button>
     </div>
-        
+    <h1 class="text">Meus Baralhos</h1>
+    <button class="btBaralhos" mat-fab extended (click)="criarBaralho()">
+      Criar novo baralho
+    </button>
+  </div>
 
+  <div class="listaBaralhos" *ngIf="baralhos$ | async as baralhos">
+    <div *ngIf="baralhos.length > 0">
+      <mat-card
+        *ngFor="let baralho of baralhos"
+        (click)="onDetalhesBaralho(baralho)"
+        class="card"
+      >
+        <div class="cardHeader">
+          <span style="padding-left: 20px">{{ baralho.nome }}</span>
 
-        <div class="listaBaralhos">
-            <mat-card class="card"  *ngFor="let ite of baralhos">
-                <mat-card-content>Simple card</mat-card-content>
-            </mat-card>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu"
+            (click)="$event.stopPropagation()"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>build</mat-icon>
+              <span>Editar</span>
+            </button>
+            <button
+              mat-menu-item
+              (click)="deleteBaralho(baralho); $event.stopPropagation()"
+            >
+              <mat-icon>delete</mat-icon>
+              <span>Deletar</span>
+            </button>
+          </mat-menu>
         </div>
-        
+        <mat-card-content class="content">
+          <div class="textConteiner">
+            <mat-icon>pets</mat-icon
+            ><span class="text"> {{ getPokemons(baralho) }}</span>
+          </div>
+          <div class="textConteiner">
+            <mat-icon>person</mat-icon
+            ><span class="text"> {{ getTreinadores(baralho) }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Empty List -->
+    <div class="emptyList" *ngIf="baralhos.length === 0">
+      <img src="assets\img\sad.png" alt="Logo" /><br />
+      <span class="text">Nenhum Baralho cadastrado</span>
+    </div>
+  </div>
 </div>

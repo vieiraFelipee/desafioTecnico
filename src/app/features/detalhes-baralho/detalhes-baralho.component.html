@@ -1,0 +1,16 @@
+<div class="wrapper">
+  <div class="header">
+    <h1 class="text">Baralho {{ baralho.nome }}</h1>
+  </div>
+
+  <div style="display: flex; height: 80%">
+    <!-- Lista de Cartas do Enpoint -->
+    <div class="cardList">
+      <mat-card class="card" *ngFor="let carta of baralho.cartas">
+        <div class="card__content__img">
+          <img [src]="carta?.images?.small" alt="Logo" />
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
