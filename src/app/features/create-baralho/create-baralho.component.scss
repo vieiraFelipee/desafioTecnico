@@ -21,28 +21,30 @@
   display: flex;
   place-content: center;
   flex-wrap: wrap;
-  width: 100%;
+  width: 65%;
   height: 100%;
   overflow: scroll;
   border-right: 3px outset #aae0ff;
-
   overflow-x: hidden;
+
   .cardList {
     display: flex;
     flex-wrap: wrap;
     height: 100%;
+    width: 100%;
   }
 
   .card {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 200px;
-    height: 350px;
-    margin: 10px;
+    min-width: 245px;
+    height: 400px;
+    margin: 30px;
     text-align: center;
+    border-radius: 20px;
     img {
-      max-width: 200px;
+      max-width: 300px;
     }
     .btCard {
       width: 80%;
@@ -54,17 +56,24 @@
 }
 
 .minhasCartas {
-  width: 512px;
+  width: 35%;
   height: 100%;
-  //border: 3px outset #aae0ff;
   border-radius: 13px;
-  text-align: center;
+  text-align: -webkit-center;
+  overflow: auto;
+
 
   .text {
     margin-top: 30px;
     color: #0072c5;
     font-family: math;
     font-size: 2rem;
+  }
+    .subtext {
+    margin-top: 0px;
+    color: #0072c5;
+    font-family: math;
+    font-size: 1.2rem;
   }
 }
 
@@ -75,6 +84,7 @@
   color: white;
   background: linear-gradient(0deg, rgb(70 181 176) 0%, #00adff 100%);
   border-radius: 10px;
+  width: 80%;
 }
 
 /* ===== Scrollbar CSS ===== */
@@ -101,14 +111,16 @@
 
 .btCard {
   width: 80%;
-  margin-bottom: 20px;
+  margin-bottom: 80px;
   color: white;
-  background: linear-gradient(0deg, rgb(70 181 176) 0%, #00adff 100%);
+  background: linear-gradient(0deg, rgb(14 20 209) 0%, #0189cd 100%);
   height: 40px;
 }
 
 ::ng-deep .mat-mdc-text-field-wrapper {
   border-radius: 20px !important;
+      background-color: #f0f7ff;
+    box-shadow: 0px 0px 25px -11px rgb(110 107 255);
 }
 
 .loading {
@@ -120,4 +132,31 @@
     font-size: 1.3rem;
     margin-top: 30px;
   }
+}
+
+
+
+
+.emptyList {
+  text-align: center;
+
+  img {
+    width: 40%;
+  }
+  .text {
+    color: #0072c5;
+    font-family: monospace;
+    font-size: 1.3rem;
+  }
+}
+
+
+.textConteiner{
+  font-size: 1.1rem;
+}
+
+
+
+.custom-disabled-button {
+  background: #0070ff4d;
 }

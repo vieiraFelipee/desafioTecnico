@@ -28,7 +28,7 @@
     color: #0073c5;
     font-family: math;
     font-size: 3rem;
-    margin-top: 10%;
+    margin-top: 100px;
     margin-bottom: 30px;
   }
 
@@ -43,6 +43,7 @@
   place-content: center;
   flex-wrap: wrap;
   width: 100%;
+  margin-top: 5%;
 
   .card {
     font-family: math;
@@ -76,7 +77,7 @@
 }
 
 .emptyList {
-  margin-top: 10%;
+  margin-top: 20px;
   text-align: center;
 
   img {

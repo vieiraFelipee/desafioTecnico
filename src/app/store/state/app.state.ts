@@ -1,8 +1,12 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { AddBaralho, DeleteBaralho, GetCartas } from '../actions/app.actions';
+import {
+  AddBaralho,
+  DeleteBaralho,
+  SearchCartas,
+} from '../actions/app.actions';
 import { Injectable } from '@angular/core';
 import { Baralho, Card } from 'src/app/shared/services/models/card.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, take, tap } from 'rxjs';
 
 export class AppStateModel {
@@ -31,25 +35,28 @@ export class AppState {
     return state.baralhos;
   }
 
-  @Action(GetCartas)
-  getCartas({ patchState }: StateContext<AppStateModel>): void {
-    console.log('Dispatch');
-
+  @Action(SearchCartas)
+  searchCartas(
+    { patchState }: StateContext<AppStateModel>,
+    { text }: SearchCartas
+  ): void {
     const url = 'https://api.pokemontcg.io/v2/cards/';
 
+    let params = new HttpParams();
+    if (text) {
+      params = params.set('q', 'name:' + text);
+    }
+
     this.http
-      .get(url)
+      .get(url, { params })
       .pipe(
         take(1),
         tap((res: any) => {
-          console.log('AAAA');
-
           patchState({
             cartas: res.data,
           });
         }),
         catchError((e) => {
-          console.log('Caiu no Erro', e);
           return e;
         })
       )
@@ -59,10 +66,14 @@ export class AppState {
   @Action(AddBaralho)
   addBaralho(ctx: StateContext<AppStateModel>, { baralho }: AddBaralho): void {
     let baralhos = ctx.getState().baralhos;
-    if (baralhos) baralhos.push(baralho);
+    let b: Baralho[] = [];
+    if (baralhos) {
+      b = baralhos.filter((item) => item.id !== baralho.id);
+      b.push(baralho);
+    }
 
     ctx.patchState({
-      baralhos: baralhos,
+      baralhos: b,
     });
   }
 

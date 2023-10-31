@@ -16,7 +16,7 @@
     <div *ngIf="baralhos.length > 0">
       <mat-card
         *ngFor="let baralho of baralhos"
-        (click)="onDetalhesBaralho(baralho)"
+        (click)="onVerBaralho(baralho, '/detalhes-baralho')"
         class="card"
       >
         <div class="cardHeader">
@@ -31,14 +31,14 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button
+              mat-menu-item
+              (click)="onVerBaralho(baralho, '/create-baralho')"
+            >
               <mat-icon>build</mat-icon>
               <span>Editar</span>
             </button>
-            <button
-              mat-menu-item
-              (click)="deleteBaralho(baralho); $event.stopPropagation()"
-            >
+            <button mat-menu-item (click)="deleteBaralho(baralho)">
               <mat-icon>delete</mat-icon>
               <span>Deletar</span>
             </button>

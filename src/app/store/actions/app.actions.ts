@@ -10,6 +10,7 @@ export class DeleteBaralho {
   constructor(public id: number) {}
 }
 
-export class GetCartas {
-  static readonly type = '[COMPONENT] Get Cartas';
+export class SearchCartas {
+  static readonly type = '[COMPONENT] Search Cartas';
+  constructor(public text: string) {}
 }

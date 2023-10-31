@@ -1,20 +1,15 @@
 <div class="wrapper">
   <div class="header">
-    <h1 class="text">Criando meu novo baralho</h1>
-    <mat-form-field [formGroup]="nameForm" *ngIf="cartasOriginal.length > 0">
+    <h1 class="text">{{ acao }} meu novo baralho</h1>
+    <mat-form-field style="width: 40%" [formGroup]="nameForm" *ngIf="!loading">
       <mat-label>Buscar Cartas</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="search"
-        (input)="onInputChange()"
-      />
+      <input matInput type="text" formControlName="search" />
       <button
         *ngIf="this.nameForm.get('search')?.value"
         matSuffix
         mat-icon-button
         aria-label="Clear"
-        (click)="this.nameForm.get('search')?.setValue('')"
+        (click)="limparBusca()"
       >
         <mat-icon>close</mat-icon>
       </button>
@@ -22,13 +17,16 @@
   </div>
 
   <div style="display: flex; height: 80%" *ngIf="cartas$ | async as cartas">
-    <div *ngIf="cartas.length > 0">
+    <div
+      *ngIf="!loading"
+      style="display: flex; flex-direction: row; width: 100%"
+    >
       <div class="listaBaralhos" #scrollContainer>
         <!-- Lista de Cartas do Enpoint -->
-        <div class="cardList">
+        <div class="cardList" *ngIf="cartasOriginal.length > 0">
           <mat-card
             class="card"
-            *ngFor="let carta of cartasOriginal.slice(0, 9)"
+            *ngFor="let carta of cartasOriginal.slice(0, 25)"
           >
             <div class="card__content__img">
               <img [src]="carta.images.small" alt="Logo" />
@@ -44,11 +42,18 @@
             </button>
           </mat-card>
         </div>
+
+        <!-- Lista de Cartas Vazia -->
+        <div class="emptyList" *ngIf="cartasOriginal.length === 0">
+          <img src="assets\img\sad.png" alt="Logo" /><br />
+          <span class="text">Nenhum Carta Encontrada</span>
+        </div>
       </div>
 
       <!-- Lista de Cartas pra Salvar -->
       <div class="minhasCartas">
         <h1 class="text">Meu Baralho</h1>
+        <h1 class="subtext">{{ cardList.length }} cartas adicionadas</h1>
 
         <mat-form-field [formGroup]="nameForm">
           <mat-label>Nome do Baralho</mat-label>
@@ -65,26 +70,62 @@
         </mat-form-field>
 
         <div class="cartaLocal" *ngFor="let carta of cardList">
-          <div>
-            <span>{{ carta.name }}</span
-            ><br />
-            <span>Raridade - {{ carta.rarity }}</span>
-            <span>HP - {{ carta.hp }}</span>
+          <div style="width: 85%" #scrollContainer>
+            <div style="margin-top: 15px">
+              <span
+                style="
+                  font-size: 25px;
+                  color: white;
+                  margin-top: 20px;
+                  margin-bottom: 5px;
+                "
+              >
+                {{ carta.name }}</span
+              >
+              <button
+                (click)="deleteCard(carta)"
+                style="float: inline-end; padding: 0px"
+                mat-icon-button
+              >
+                <mat-icon>deletet</mat-icon>
+              </button>
+            </div>
+            <div style="text-align: left; margin-top: 5px; margin-bottom: 14px">
+              <div class="textConteiner">
+                <mat-icon>pets</mat-icon
+                ><span style="font-size: 15px; color: white; margin-top: 5px">
+                  Supertype - {{ carta.supertype }}
+                </span>
+              </div>
+              <br />
+              <div class="textConteiner">
+                <mat-icon>favorite</mat-icon
+                ><span style="font-size: 15px; color: white; margin-top: 0px">
+                  HP - {{ carta.hp }}</span
+                >
+              </div>
+            </div>
           </div>
-          <button mat-icon-button matTooltip="Basic">
-            <mat-icon>favorite</mat-icon>
-          </button>
         </div>
 
-        <div>
-          <button class="btCard" mat-fab extended (click)="salvarBaralho()">
+        <div style="margin-top: 35px">
+          <button
+            [disabled]="this.cardList.length < 24 || this.cardList.length > 60"
+            class="btCard"
+            [class.custom-disabled-button]="
+              this.cardList.length < 24 || this.cardList.length > 60
+            "
+            mat-fab
+            extended
+            (click)="salvarBaralho()"
+          >
             Adicionar Baralho
           </button>
         </div>
       </div>
     </div>
 
-    <div class="loading" *ngIf="cartas.length === 0">
+    <div class="loading" *ngIf="loading">
       <mat-spinner style="margin-bottom: 20px"></mat-spinner>
       <span>Buscando Cartas...</span>
     </div>

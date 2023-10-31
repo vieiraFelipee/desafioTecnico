@@ -72,9 +72,7 @@ export class BaralhosComponent implements OnInit {
     this.store.dispatch(new DeleteBaralho(baralho.id));
   }
 
-  onDetalhesBaralho(baralho: Baralho) {
-    console.log('vai enviar', baralho);
-
-    this.router.navigate(['/detalhes-baralho'], { state: baralho });
+  onVerBaralho(baralho: Baralho, url: string) {
+    this.router.navigate([url], { state: baralho });
   }
 }
