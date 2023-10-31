@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import { Observable, debounceTime, skip } from 'rxjs';
+import { Observable, Subscription, debounceTime, skip, take } from 'rxjs';
 import { Baralho, Card } from 'src/app/shared/services/models/card.model';
 import { AddBaralho, SearchCartas } from 'src/app/store/actions/app.actions';
 import { AppState } from 'src/app/store/state/app.state';
@@ -13,8 +13,10 @@ import { AppState } from 'src/app/store/state/app.state';
   templateUrl: './create-baralho.component.html',
   styleUrls: ['./create-baralho.component.scss'],
 })
-export class CreateBaralhoComponent implements OnInit {
+export class CreateBaralhoComponent implements OnInit, OnDestroy {
   nameForm: FormGroup;
+
+  private cartasSubscription: Subscription | undefined;
 
   @Select(AppState.getCartas) cartas$: Observable<Card[]> | undefined;
   cartasOriginal: Card[] = [];
@@ -44,7 +46,7 @@ export class CreateBaralhoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
+    this.route.paramMap.pipe(take(1)).subscribe((params) => {
       if (history) {
         const b = history.state as Baralho;
         if (b.cartas) {
@@ -57,10 +59,12 @@ export class CreateBaralhoComponent implements OnInit {
     });
 
     this.store.dispatch(new SearchCartas(''));
-    this.cartas$?.pipe(skip(1)).subscribe((cartas) => {
-      this.cartasOriginal = cartas;
-      this.loading = false;
-    });
+    this.cartasSubscription = this.cartas$
+      ?.pipe(skip(1))
+      .subscribe((cartas) => {
+        this.cartasOriginal = cartas;
+        this.loading = false;
+      });
 
     this.checkBusca();
   }
@@ -128,5 +132,11 @@ export class CreateBaralhoComponent implements OnInit {
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, { duration: 3000 });
+  }
+
+  ngOnDestroy(): void {
+    if (this.cartasSubscription) {
+      this.cartasSubscription.unsubscribe();
+    }
   }
 }
