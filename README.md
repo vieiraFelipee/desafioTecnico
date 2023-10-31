@@ -10,27 +10,24 @@ Projeto criado com [Angular CLI](https://github.com/angular/angular-cli) version
 
 Estado da Aplicação gerenciado por NgXS
 
-Lista de baralhos
+<div class="section">
+        <h2>Criterios de aceite</h2>
+        <p class="list-item">O usuário pode ver seus baralhos;</p>
+        <p class="list-item">O usuário pode criar um novo baralho;</p>
+        <p class="list-item">O usuário pode remover um baralho;</p>
+        <p class="list-item">O usuário pode editar um baralho;</p>
+        <p class="list-item">O usuário pode clicar num baralho para visualizar seus detalhes.</p>
+        <p class="list-item">O usuário pode colocar um nome no seu baralho;</p>
+        <p class="list-item">O usuário pode inserir cartas no baralho;</p>
+        <p class="list-item">O baralho tem que ter no mínimo 24 cartas e no máximo 60;</p>
+        <p class="list-item">Só podem ter 4 cartas com o mesmo nome, no baralho. (Nome não id);</p>
+        <p class="list-item">Após salvar o baralho voltamos para a página de lista de baralhos atualizada;</p>
+        <p class="list-item">O baralho será salvo apenas em memória.</p>
+  <p class="list-item">O usuário consegue ver quantos pokemons e cartas de treinador existem no baralho. (atributo supertype)</p>
+        <p class="list-item">O usuário consegue ver de quantas cores é o baralho, quantos types únicos existem no baralho.</p>
+</div>
 
-O usuário pode ver seus baralhos;
-O usuário pode criar um novo baralho;
-O usuário pode remover um baralho;
-O usuário pode editar um baralho;
-O usuário pode clicar num baralho para visualizar seus detalhes.
 
-Criação de um baralho
-
-O usuário pode colocar um nome no seu baralho;
-O usuário pode inserir cartas no baralho;
-O baralho tem que ter no mínimo 24 cartas e no máximo 60;
-Só podem ter 4 cartas com o mesmo nome, no baralho. (Nome não id);
-Após salvar o baralho voltamos para a página de lista de baralhos atualizada;
-O baralho será salvo apenas em memória.
-
-Detalhes do baralho
-
-O usuário consegue ver quantos pokemons e cartas de treinador existem no baralho. (atributo supertype)
-O usuário consegue ver de quantas cores é o baralho, quantos types únicos existem no baralho.
 
 ## Development server
 
